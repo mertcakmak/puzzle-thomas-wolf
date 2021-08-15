@@ -1,5 +1,5 @@
-import { Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { Fragment, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import * as actions from '../../store/actions';
 import Row from "./Row";
 import useKeypress from 'react-use-keypress';
@@ -7,17 +7,9 @@ import useKeypress from 'react-use-keypress';
 
 export default function Puzzle(props){
     const {selectedGame} = props;
-
+    const [thomas, setThomas] = useState({});
+    const [wolf, setWolf] = useState({});
     const dispatch = useDispatch();
-    dispatch({
-        type:actions.ON_MOVE_WOLF,
-        value:selectedGame.wolf
-    });
-
-    dispatch({
-        type:actions.ON_MOVE_THOMAS,
-        value:selectedGame.thomas
-    });
 
     const layout = [];
     selectedGame.layout.forEach((item)=>{
@@ -27,41 +19,58 @@ export default function Puzzle(props){
     });
     const dimension = layout.length;
 
-    const thomas = useSelector(state=>state.thomas);
+    useEffect(()=>{
+        onMoveThomasHandler(selectedGame.thomas);
+        onMoveWolfHandler(selectedGame.wolf);
+    },[]);
 
     useKeypress(['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'], (event) => {
+        let newPosition = {};
+        let layoutPosition = {}
+        let borderPosition = '';
         switch(event.key){
             case 'ArrowUp':
-                const newPosition = {...thomas, row:thomas.row-1};
-                const layoutPosition = selectedGame.layout.find(item=>item.row===newPosition.row && item.column===newPosition.column);
-                if(layoutPosition && layoutPosition.borders.indexOf('B')===-1) { 
-                    onMoveThomasHandler(layoutPosition);
-                }
+                newPosition = {...thomas, row:thomas.row-1};
+                borderPosition = 'B';
             break;
             case 'ArrowRight':
-                console.log('RIGHT');
+                newPosition = {...thomas, column:thomas.column+1};
+                borderPosition = 'L';
             break;
             case 'ArrowDown':
-                console.log('DOWN');
+                newPosition = {...thomas, row:thomas.row+1};
+                borderPosition = 'T';
             break;
             case 'ArrowLeft':
-                console.log('LEFT');
+                newPosition = {...thomas, column:thomas.column-1};
+                borderPosition = 'R';
             break;
+        }
+
+        layoutPosition = selectedGame.layout.find(item=>item.row===newPosition.row && item.column===newPosition.column);
+        if(layoutPosition && layoutPosition.borders.indexOf(borderPosition)===-1) { 
+            onMoveThomasHandler(layoutPosition);
         }
     });
 
-    console.log(selectedGame.thomas);
-
     const onMoveThomasHandler = (layoutPosition) =>{
+        const newThomas = {row:layoutPosition.row, column:layoutPosition.column};
+        setThomas(newThomas);
 
-        const action = {
-            type: actions.ON_MOVE_THOMAS,
-            value : {
-                row : layoutPosition.row,
-                column : layoutPosition.column
-            }
-        };
-        dispatch(action);
+        dispatch({
+            type:actions.ON_MOVE_THOMAS,
+            value:newThomas
+        });
+    }
+
+    const onMoveWolfHandler = (layoutPosition) =>{
+        const newWolf = {row:layoutPosition.row, column:layoutPosition.column};
+        setWolf(newWolf);
+
+        dispatch({
+            type:actions.ON_MOVE_WOLF,
+            value:newWolf
+        });
     }
 
     return (
@@ -72,6 +81,5 @@ export default function Puzzle(props){
                 )
             })}
         </Fragment>
-
     )
 }
