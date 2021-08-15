@@ -50,8 +50,48 @@ export default function Puzzle(props){
         layoutPosition = selectedGame.layout.find(item=>item.row===newPosition.row && item.column===newPosition.column);
         if(layoutPosition && layoutPosition.borders.indexOf(borderPosition)===-1) { 
             onMoveThomasHandler(layoutPosition);
+            const wolfPositon = {...wolf};
+            checkWolfPositon(layoutPosition,wolfPositon,2);
         }
     });
+
+    const checkWolfPositon= (thomasPosition,wolfPositon,n)=>{
+        if(n===0) {
+            onMoveWolfHandler(wolfPositon);
+            return;
+        }
+
+        if(thomasPosition.row===wolfPositon.row){ 
+            wolfMoveHorizontal(thomasPosition,wolfPositon,n);
+        } else {
+            wolfMoveVertical(thomasPosition,wolfPositon,n);
+        }
+    }
+
+    const wolfMoveHorizontal = (thomasPosition,wolfPositon,n)=>{
+        const dif = (thomasPosition.column-wolfPositon.column) > 0 ? 1 : -1;
+        const borderPosition = dif > 0 ? 'L' : 'R';
+        let newPosition = {...wolfPositon, column:(wolfPositon.column+dif)};
+        let layoutPosition = selectedGame.layout.find(item=>item.row===newPosition.row && item.column===newPosition.column);
+        if(layoutPosition && layoutPosition.borders.indexOf(borderPosition)===-1) { 
+            console.log('new',newPosition);
+            wolfPositon = newPosition;
+        }
+        checkWolfPositon(thomasPosition,wolfPositon,(n-1));
+    }
+
+    const wolfMoveVertical = (thomasPosition,wolfPositon,n)=>{
+        const dif = (thomasPosition.row-wolfPositon.row) > 0 ? 1 : -1;
+        const borderPosition = dif > 0 ? 'T' : 'B';
+        let newPosition = {...wolfPositon, row:(wolfPositon.row+dif)};
+        let layoutPosition = selectedGame.layout.find(item=>item.row===newPosition.row && item.column===newPosition.column);
+
+        if(layoutPosition && layoutPosition.borders.indexOf(borderPosition)===-1) { 
+            console.log('new',newPosition);
+            wolfPositon = newPosition;
+        }
+        checkWolfPositon(thomasPosition,wolfPositon,(n-1));
+    }
 
     const onMoveThomasHandler = (layoutPosition) =>{
         const newThomas = {row:layoutPosition.row, column:layoutPosition.column};
