@@ -61,33 +61,15 @@ export default function Puzzle(props){
             return;
         }
 
-        if(thomasPosition.row===wolfPositon.row){ 
-            wolfMoveHorizontal(thomasPosition,wolfPositon,n);
-        } else {
-            wolfMoveVertical(thomasPosition,wolfPositon,n);
-        }
-    }
+        let dimension = thomasPosition.row===wolfPositon.row ? 'column' : 'row';
+        let dif = (thomasPosition[dimension]-wolfPositon[dimension]) > 0 ? 1 : -1;
+        let borderPosition = dimension==='column' ? dif > 0 ? 'L' : 'R' : dif > 0 ? 'T' : 'B';
 
-    const wolfMoveHorizontal = (thomasPosition,wolfPositon,n)=>{
-        const dif = (thomasPosition.column-wolfPositon.column) > 0 ? 1 : -1;
-        const borderPosition = dif > 0 ? 'L' : 'R';
-        let newPosition = {...wolfPositon, column:(wolfPositon.column+dif)};
+        let newPosition = {...wolfPositon };
+        newPosition[dimension] += dif;
+
         let layoutPosition = selectedGame.layout.find(item=>item.row===newPosition.row && item.column===newPosition.column);
         if(layoutPosition && layoutPosition.borders.indexOf(borderPosition)===-1) { 
-            console.log('new',newPosition);
-            wolfPositon = newPosition;
-        }
-        checkWolfPositon(thomasPosition,wolfPositon,(n-1));
-    }
-
-    const wolfMoveVertical = (thomasPosition,wolfPositon,n)=>{
-        const dif = (thomasPosition.row-wolfPositon.row) > 0 ? 1 : -1;
-        const borderPosition = dif > 0 ? 'T' : 'B';
-        let newPosition = {...wolfPositon, row:(wolfPositon.row+dif)};
-        let layoutPosition = selectedGame.layout.find(item=>item.row===newPosition.row && item.column===newPosition.column);
-
-        if(layoutPosition && layoutPosition.borders.indexOf(borderPosition)===-1) { 
-            console.log('new',newPosition);
             wolfPositon = newPosition;
         }
         checkWolfPositon(thomasPosition,wolfPositon,(n-1));
