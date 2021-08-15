@@ -23,6 +23,8 @@ export default function Column(props){
     }
 
     return(
-        <div row={params.row} column={params.column} className={`puzzleColumn ${classValue}`}>{params.column}</div>
+        <div row={params.row} column={params.column} className={`puzzleColumn ${classValue}`}>
+            {params.row}{params.column}
+        </div>
     )
 }
