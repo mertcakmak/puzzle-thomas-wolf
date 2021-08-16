@@ -12,6 +12,7 @@ export default function Game(props){
     const [selectedGame, setSelectedGame] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const games = useSelector(state=>state.games);
+    const [moveCount,setMoveCount] = useState(0);
     const puzzleRef = useRef();
 
     const router = useRouter();
@@ -37,16 +38,34 @@ export default function Game(props){
 
 
     return (
-        <div className='container'>
+        <div className='container mt-3'>
             <div>
-                <h1>{selectedGame.name}</h1>
-                <p>{selectedGame.description}</p>
-                <Link href='/'>Home page</Link>
+                <div className='d-flex w-100 align-items-center'>
+                    <div className='mr-5'>
+                        <Link href='/'>
+                           <a><FontAwesomeIcon icon={faChevronLeft} /> Back</a>
+                        </Link>
+                    </div>
+
+                    <div className='flex-grow-1'>
+                        <h3>{selectedGame.name}</h3>
+                        <p>{selectedGame.description}</p>
+                    </div>
+
+                    <div className=''>
+                        <div className='p-4 text-center'>
+                            <h1>{moveCount-1}</h1>
+                            <small>Move Count</small>
+                        </div>
+                        
+                    </div>
+                </div>
+
                 <hr/>
 
                 <div className='d-flex w-100 '>
                     <div className='d-flex flex-grow-1  bg-light m-3 p-3 rounded shadow-lg border flex-column align-items-center justify-content-center'>
-                        <Puzzle selectedGame={selectedGame} ref={puzzleRef}/>
+                        <Puzzle selectedGame={selectedGame} ref={puzzleRef} moveCount={moveCount} setMoveCount={setMoveCount}/>
                     </div>
                     <div className='d-flex flex-column align-items-center p-3 bg-dark shadow-lg m-3 rounded'>
                         <div className='d-flex flex-column align-items-center h-100 align-content-center align-items-md-center justify-content-center'>

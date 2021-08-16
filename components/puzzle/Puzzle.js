@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState, forwardRef, useImperativeHandle } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from '../../store/actions';
 import Row from "./Row";
 import useKeypress from 'react-use-keypress';
@@ -29,6 +29,7 @@ const Puzzle = forwardRef((props,ref)=>{
         onMoveThomasHandler(selectedGame.thomas);
         onMoveWolfHandler(selectedGame.wolf);
         setGameStatus('');
+        props.setMoveCount(0);
     }
 
     useImperativeHandle(ref, () => ({
@@ -118,6 +119,8 @@ const Puzzle = forwardRef((props,ref)=>{
             type:actions.ON_MOVE_THOMAS,
             value:newThomas
         });
+
+        props.setMoveCount(props.moveCount+1);
     }
 
     const onMoveWolfHandler = (layoutPosition) =>{

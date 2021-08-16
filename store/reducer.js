@@ -5,7 +5,7 @@ const initialState = {
     games : gameData.puzzles,
     currentGame : '',
     wolf:{},
-    thomas:{}
+    thomas:{},
 }
 
 const Reducer = (state=initialState, action)=>{
@@ -23,7 +23,7 @@ const Reducer = (state=initialState, action)=>{
         case actions.ON_MOVE_THOMAS:
             return {
                 ...state,
-                thomas:action.value
+                thomas:action.value,
             }
         default:
             return state;
