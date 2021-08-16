@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import { useDispatch } from "react-redux";
 import * as actions from '../../store/actions';
 import Row from "./Row";
 import useKeypress from 'react-use-keypress';
 import GameStatus from "./GameStatus";
 
-export default function Puzzle(props){
+const Puzzle = forwardRef((props,ref)=>{
     const {selectedGame} = props;
     const [thomas, setThomas] = useState({});
     const [wolf, setWolf] = useState({});
@@ -31,12 +31,22 @@ export default function Puzzle(props){
         setGameStatus('');
     }
 
+    useImperativeHandle(ref, () => ({
+        onArrowClick(direction) {
+            onMovementHandler(direction);
+        }
+    }));
+
     useKeypress(['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'], (event) => {
+        onMovementHandler(event.key);
+    });
+
+    const onMovementHandler = (direction)=>{
         let newPosition = {};
         let layoutPosition = {}
         let borderPosition = '';
         let currentPositionBorder = '';
-        switch(event.key){
+        switch(direction){
             case 'ArrowUp':
                 newPosition = {...thomas, row:thomas.row-1};
                 borderPosition = 'B';
@@ -74,7 +84,7 @@ export default function Puzzle(props){
                 setGameStatus('escaped');
             }
         }
-    });
+    }
 
 
     const checkWolfPositon= (thomasPosition,wolfPositon,n)=>{
@@ -137,4 +147,5 @@ export default function Puzzle(props){
             </div>
         </Fragment>
     )
-}
+});
+export default Puzzle;
