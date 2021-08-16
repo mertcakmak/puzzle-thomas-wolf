@@ -14,3 +14,21 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.puzzleColumn { 
+  width: 50px;
+  height: 50px;
+  display: block;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+}
+.border-T { border-top: 1px solid rgba(0, 0, 0,0.2); }
+.border-R { border-right: 1px solid rgba(0, 0, 0,0.2); }
+.border-B { border-bottom: 1px solid rgba(0, 0, 0,0.2); }
+.border-L {  border-left: 1px solid rgba(0, 0, 0,0.2);}
+
+.puzzleColumn.wolf { background: red; color: #fff;}
+.puzzleColumn.thomas { background: green; color: #fff;}
