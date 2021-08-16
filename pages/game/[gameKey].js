@@ -41,21 +41,27 @@ export default function Game(props){
         <div className='container mt-3'>
             <div>
                 <div className='d-flex w-100 align-items-center'>
-                    <div className='mr-5'>
+                    <div className='mr-5 d-block'>
                         <Link href='/'>
-                           <a><FontAwesomeIcon icon={faChevronLeft} /> Back</a>
+                            <a>
+                                <div className='d-flex align-items-center'>
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                    <div className='ml-2'>Back</div>
+                                </div>
+                            </a>
+                            
                         </Link>
                     </div>
 
                     <div className='flex-grow-1'>
                         <h3>{selectedGame.name}</h3>
-                        <p>{selectedGame.description}</p>
+                        <p className='small'>{selectedGame.description}</p>
                     </div>
 
                     <div className=''>
                         <div className='p-4 text-center'>
                             <h1>{moveCount-1}</h1>
-                            <small>Move Count</small>
+                            <small>Moves</small>
                         </div>
                         
                     </div>

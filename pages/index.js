@@ -1,28 +1,47 @@
 import { useSelector } from "react-redux"
+import {ListGroup} from 'react-bootstrap';
 import Link from 'next/link';
 
 export default function Home() {
   const games = useSelector(state=>state.games);
   return (
-    <div className="container">
-      <h1>Puzzle: Wolf and Thomas</h1>
-      <p>Lorem ipsum dolor sit amet</p>
+    <div className="container mt-5">
+      <h1>Puzzle: Thomas and the Wolf</h1>
+      <p>You can pick one of the games listed below. You control Thomas` movement; the wolf`s movements are automatic (see below sub-points for wolf rules)</p>
 
-      <ul>
-        {
-          games.map((item,key)=>{
-            return(
-              <li key={key}>
-                <h4>{item.name}</h4>
-                <p>{item.description}</p>
-                <Link href={`/game/${key}`}>Play</Link>
-              </li>
-            )
-          })
-        }
-      </ul>
-      HOME PAGE {games.length}
+      <ListGroup variant="flush" className='mb-4' >
+        <ListGroup.Item className='small p-1'>The grid contains walls - neither Thomas, nor the wolf can pass through walls</ListGroup.Item>
+        <ListGroup.Item className='small p-1'>Thomas can move one space or can chose not to move for his turn</ListGroup.Item>
+        <ListGroup.Item className='small p-1'>The wolf can move up to two spaces towards Thomas</ListGroup.Item>
+          <ListGroup.Item className='small p-1 pl-5'>If the wolf and Thomas are on the same row, the wolf will only try to move horizontally towards Thomas</ListGroup.Item>
+          <ListGroup.Item className='small p-1 pl-5'>If the wolf and Thomas are on the same column, the wolf will only try to move vertically towards Thomas</ListGroup.Item>
+          <ListGroup.Item className='small p-1 pl-5'>If the wolf and Thomas are on different rows and columns, the wolf will move in whichever direction is not blocked and moves it closer to Thomas</ListGroup.Item>
+          <ListGroup.Item className='small p-1 pl-5'>If the wolf cannot move in any direction towards Thomas (e.g. due to walls), it will forfeit its turn and remain stationary</ListGroup.Item>
+        <ListGroup.Item className='small p-1'>Neither Thomas, nor the wolf can move diagonally - they can only move up, down, left and right</ListGroup.Item>
+        <ListGroup.Item className='small p-1'>The game is won if Thomas escapes the grid</ListGroup.Item>
+        <ListGroup.Item className='small p-1'>The game is lost if the wolf reaches Thomas during its turn</ListGroup.Item>          
+      </ListGroup>
 
+      <h3 className='mb-3'>Games ({games.length})</h3>
+
+      {
+        games.map((item,key)=>{
+          return(
+            <div className='card shadow-lg' key={key}>
+              <div className='card-header'>{item.name}</div>
+              <div className='card-body'>
+                {item.description}
+                <div className='mt-3'>
+                  <Link href={`/game/${key}`}>
+                    <a className='btn btn-dark btn-sm'>Play Now</a>
+                  </Link>
+                  
+                </div>
+              </div>
+            </div>
+          )
+        })
+      }
     </div>
   )
 }
