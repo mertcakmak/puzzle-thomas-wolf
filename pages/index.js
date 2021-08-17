@@ -22,7 +22,13 @@ export default function Home() {
         <ListGroup.Item className='small p-1'>The game is lost if the wolf reaches Thomas during its turn</ListGroup.Item>          
       </ListGroup>
 
-      <h3 className='mb-3'>Games ({games.length})</h3>
+      <div className='d-flex justify-content-lg-between align-items-center border-bottom mb-3 pb-2'>
+        <h3 className=''>Games ({games.length})</h3>
+        <Link href='/game/create'>
+          <a className='btn btn-sm btn-primary'>+ Create New Game</a>
+        </Link>
+      </div>
+      
 
       {
         games.map((item,key)=>{

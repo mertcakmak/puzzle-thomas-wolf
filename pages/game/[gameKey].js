@@ -36,7 +36,6 @@ export default function Game(props){
         puzzleRef.current.onArrowClick(direction);
     }
 
-
     return (
         <div className='container mt-3'>
             <div>
@@ -62,15 +61,14 @@ export default function Game(props){
                         <div className='p-4 text-center'>
                             <h1>{moveCount-1}</h1>
                             <small>Moves</small>
-                        </div>
-                        
+                        </div>  
                     </div>
                 </div>
 
                 <hr/>
 
                 <div className='d-flex w-100 '>
-                    <div className='d-flex flex-grow-1  bg-light m-3 p-3 rounded shadow-lg border flex-column align-items-center justify-content-center'>
+                    <div className='d-flex flex-grow-1 bg-white m-3 p-3 rounded shadow-lg border flex-column align-items-center justify-content-center'>
                         <Puzzle selectedGame={selectedGame} ref={puzzleRef} moveCount={moveCount} setMoveCount={setMoveCount}/>
                     </div>
                     <div className='d-flex flex-column align-items-center p-3 bg-dark shadow-lg m-3 rounded'>

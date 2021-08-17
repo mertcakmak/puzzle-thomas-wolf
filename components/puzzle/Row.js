@@ -2,7 +2,7 @@ import React from 'react';
 import Column from "./Column";
 
 export default function Row(props){
-    const { columns, dimension } = props;
+    const { columns, dimension, editMode } = props;
 
     return(
         <div className='d-flex'>
