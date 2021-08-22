@@ -6,6 +6,10 @@ const initialState = {
     currentGame : '',
     wolf:{},
     thomas:{},
+    createGame:{
+        dimension:0,
+        puzzleLayout:[]
+    }
 }
 
 const Reducer = (state=initialState, action)=>{
@@ -24,6 +28,17 @@ const Reducer = (state=initialState, action)=>{
             return {
                 ...state,
                 thomas:action.value,
+            }
+        case actions.ON_CHANGE_CREATE_GAME_DIMENSION:
+            return{
+                ...state,
+                wolf:{},
+                thomas:{},
+                createGame:{
+                    ...state.createGame,
+                    dimension:action.value.dimension,
+                    puzzleLayout:action.value.puzzleLayout
+                }
             }
         default:
             return state;

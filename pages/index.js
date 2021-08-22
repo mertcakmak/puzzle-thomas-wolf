@@ -1,9 +1,26 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useRouter } from "next/router";
 import {ListGroup} from 'react-bootstrap';
+import * as actions from '../store/actions';
 import Link from 'next/link';
 
 export default function Home() {
   const games = useSelector(state=>state.games);
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const onCreateNewGame = ()=>{
+    const action = {
+      type: actions.ON_CHANGE_CREATE_GAME_DIMENSION,
+      value:{
+        dimension:0,
+        layout:[]
+      }
+    }
+    dispatch(action);
+    router.push('/game/create');
+  }
+
   return (
     <div className="container mt-5">
       <h1>Puzzle: Thomas and the Wolf</h1>
@@ -24,9 +41,8 @@ export default function Home() {
 
       <div className='d-flex justify-content-lg-between align-items-center border-bottom mb-3 pb-2'>
         <h3 className=''>Games ({games.length})</h3>
-        <Link href='/game/create'>
-          <a className='btn btn-sm btn-primary'>+ Create New Game</a>
-        </Link>
+        <button onClick={onCreateNewGame} className='btn btn-sm btn-primary'>+ Create New Game</button>
+        
       </div>
       
 

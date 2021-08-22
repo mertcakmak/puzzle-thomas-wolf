@@ -1,12 +1,14 @@
 import React,{useState,useEffect} from 'react';
 import Layout from '../../components/puzzle/Layout';
-import {createRangeArray} from '../../components/utils';
+import {createRangeArray, createLayout} from '../../components/utils';
 import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from 'react-redux';
+import * as actions from '../../store/actions';
 
 export default function CreateGame(){
-    const [dimension,setDimension] = useState(0);
+    // const [dimension,setDimension] = useState(0);
     
     const dimensionList = [];
 
@@ -14,10 +16,17 @@ export default function CreateGame(){
     //     setDimension(0);
     // }, [dimension])
 
-    const onSelectDimension = (e)=>{
-        setDimension(e.target.value);
+    const dispatch = useDispatch();
 
-        console.log(e.target.value);
+    const onSelectDimension = (e)=>{
+        //setDimension(e.target.value);
+        const dimension = e.target.value;
+        const puzzleLayout = createLayout(dimension);
+        const action = {
+            type:actions.ON_CHANGE_CREATE_GAME_DIMENSION,
+            value: { dimension, puzzleLayout }
+        }
+        dispatch(action);
     }
 
 
@@ -69,7 +78,8 @@ export default function CreateGame(){
                     </div>
                 </div>
                 <div className='bg-info bg-danger flex-grow-1'>
-                    <Layout dimension={dimension} />
+                    {/* <Layout dimension={dimension} /> */}
+                    <Layout/>
                 </div>
             </div>
 
