@@ -9,6 +9,7 @@ export default function Home() {
 
   const router = useRouter();
   const dispatch = useDispatch();
+  
   const onCreateNewGame = ()=>{
     const action = {
       type: actions.ON_CHANGE_CREATE_GAME_DIMENSION,

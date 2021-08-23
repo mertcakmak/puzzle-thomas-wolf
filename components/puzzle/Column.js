@@ -22,6 +22,15 @@ export default function Column(props){
         classValue += ' thomas';
     }
 
+    const mode = useSelector(state=>state.mode);
+    if(mode==='create'){
+        return(
+            <div row={params.row} column={params.column} className={`puzzleColumn`}>
+                <button className='btn btn-light'>{params.row}{params.column}</button>
+            </div>
+        )    
+    }
+
     return(
         <div row={params.row} column={params.column} className={`puzzleColumn ${classValue}`}>
             {params.row}{params.column}

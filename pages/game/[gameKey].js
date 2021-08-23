@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Loader from '../../components/utils/Loader';
 import Puzzle from '../../components/puzzle/Puzzle';
 import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import * as actions from  '../../store/actions';
 
 export default function Game(props){
     const {gameKey} = props;
@@ -16,6 +17,12 @@ export default function Game(props){
     const puzzleRef = useRef();
 
     const router = useRouter();
+
+    const dispatch = useDispatch();
+    dispatch({
+        type:actions.ON_CHANGE_MODE,
+        value:'game'
+    });
 
     useEffect(()=>{
         if(games[gameKey]) {

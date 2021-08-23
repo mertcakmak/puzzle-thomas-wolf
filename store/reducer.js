@@ -9,7 +9,8 @@ const initialState = {
     createGame:{
         dimension:0,
         puzzleLayout:[]
-    }
+    },
+    mode:''
 }
 
 const Reducer = (state=initialState, action)=>{
@@ -39,6 +40,11 @@ const Reducer = (state=initialState, action)=>{
                     dimension:action.value.dimension,
                     puzzleLayout:action.value.puzzleLayout
                 }
+            }
+        case actions.ON_CHANGE_MODE:
+            return {
+                ...state,
+                mode:action.value
             }
         default:
             return state;

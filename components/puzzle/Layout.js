@@ -52,7 +52,7 @@ export default function Layout(props){
             <div className='shadow-lg m-4 bg-white'>
             {puzzleLayout.map((item,key)=>{
                 return(
-                    <Row key={key} columns={item} dimension={dimension} editMode/>
+                    <Row key={key} columns={item} dimension={dimension}/>
                 )
             })}
             </div>

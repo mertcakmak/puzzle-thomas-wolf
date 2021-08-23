@@ -29,6 +29,11 @@ export default function CreateGame(){
         dispatch(action);
     }
 
+    dispatch({
+        type:actions.ON_CHANGE_MODE,
+        value:'create'
+    });
+
 
     return(
         <div className='container mt-5'>
