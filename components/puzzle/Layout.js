@@ -37,6 +37,11 @@ export default function Layout(props){
     //     value:{}
     // });
 
+
+    const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
+    console.log('===');
+    console.log(selectedColumns);
+
     
     
 

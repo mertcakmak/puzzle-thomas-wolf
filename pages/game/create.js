@@ -82,7 +82,7 @@ export default function CreateGame(){
                         <textarea className='form-control form-control-sm'></textarea>
                     </div>
                 </div>
-                <div className='bg-info bg-danger flex-grow-1'>
+                <div className=' flex-grow-1'>
                     {/* <Layout dimension={dimension} /> */}
                     <Layout/>
                 </div>

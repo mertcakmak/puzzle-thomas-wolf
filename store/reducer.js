@@ -1,4 +1,5 @@
 import * as actions from './actions';
+import { distinctArray } from '../components/utils'; 
 import gameData from '../data/gameData.json';
 
 const initialState = {
@@ -8,9 +9,11 @@ const initialState = {
     thomas:{},
     createGame:{
         dimension:0,
-        puzzleLayout:[]
+        puzzleLayout:[],
+        selectedColumns:[]
     },
     mode:''
+
 }
 
 const Reducer = (state=initialState, action)=>{
@@ -38,9 +41,27 @@ const Reducer = (state=initialState, action)=>{
                 createGame:{
                     ...state.createGame,
                     dimension:action.value.dimension,
-                    puzzleLayout:action.value.puzzleLayout
+                    puzzleLayout:action.value.puzzleLayout,
+                    selectedColumns:[]
                 }
             }
+        case actions.ON_COLUMN_CLICKED:
+            const selectedColumns = [...state.createGame.selectedColumns];
+            const indexValue = selectedColumns.findIndex(item=>JSON.stringify(item)===JSON.stringify(action.value));
+            if(indexValue>-1){
+                selectedColumns.splice(indexValue,1);
+            } else {
+                selectedColumns.push(action.value);
+            }
+
+            return {
+                ...state,
+                createGame:{
+                    ...state.createGame,
+                    selectedColumns: distinctArray(selectedColumns)
+                }
+            }
+
         case actions.ON_CHANGE_MODE:
             return {
                 ...state,

@@ -1,8 +1,10 @@
 import React  from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from '../../store/actions';
 
 export default function Column(props){
     const {params} = props;
+    const dispatch = useDispatch();
 
     const wolf = useSelector(state=>state.wolf);
     const thomas = useSelector(state=>state.thomas);
@@ -22,11 +24,25 @@ export default function Column(props){
         classValue += ' thomas';
     }
 
+    const onColumnClicked = (row, column)=>{
+        const action = {
+            type:actions.ON_COLUMN_CLICKED,
+            value:{ row, column }
+        }
+        dispatch(action);
+    }
+
     const mode = useSelector(state=>state.mode);
-    if(mode==='create'){
+    const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
+
+    if(mode==='create'){    
+
+        const indexValue = selectedColumns.findIndex(item=>JSON.stringify(item)===JSON.stringify({row:params.row, column:params.column}));
+        const buttonClass = indexValue===-1 ? ' btn-light ' : ' btn-info ';
+        
         return(
-            <div row={params.row} column={params.column} className={`puzzleColumn`}>
-                <button className='btn btn-light'>{params.row}{params.column}</button>
+            <div row={params.row} column={params.column} className={`puzzleColumn ${classValue}`}>
+                <button onClick={onColumnClicked.bind(this,params.row, params.column)} className={`btn ${buttonClass}`}>{params.row}{params.column}</button>
             </div>
         )    
     }
