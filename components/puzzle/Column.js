@@ -35,11 +35,14 @@ export default function Column(props){
     const mode = useSelector(state=>state.mode);
     const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
 
-    if(mode==='create'){    
+    const createModeThomas = useSelector(state=>state.createGame.thomas);
+    const createModeWolf = useSelector(state=>state.createGame.wolf);
 
+    if(mode==='create'){    
+    
         const indexValue = selectedColumns.findIndex(item=>JSON.stringify(item)===JSON.stringify({row:params.row, column:params.column}));
-        const buttonClass = indexValue===-1 ? ' btn-light ' : ' btn-info ';
-        
+        let buttonClass =   indexValue===-1 ? ' btn-light ' : ' btn-info ';
+
         return(
             <div row={params.row} column={params.column} className={`puzzleColumn ${classValue}`}>
                 <button onClick={onColumnClicked.bind(this,params.row, params.column)} className={`btn ${buttonClass}`}>{params.row}{params.column}</button>

@@ -7,7 +7,7 @@ export default function ColumnDecorator(){
     const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
 
     const dispatch = useDispatch();
-    const onBorderButtonClick = (border)=>{
+    const onClickBorderButton = (border)=>{
         if(selectedColumns.length>0){            
             selectedColumns.forEach((item)=>{
                 const columnInLayout = puzzleLayout[parseInt(item.row)-1][parseInt(item.column)-1];
@@ -21,18 +21,44 @@ export default function ColumnDecorator(){
                 value: puzzleLayout
             }
 
-            dispatch(action);            
+            dispatch(action);
+        }
+    }
 
+    const onClickUnSelectColumns = ()=>{
+        const action = {
+            type:actions.ON_UNSELECT_COLUMNS,
+            value: []
+        }
+        dispatch(action);
+    }
+
+    const onClickSetWolfThomas =(v)=>{
+        if(selectedColumns.length===1){
+
+            const action = {
+                type: actions.ON_SET_THOMAS_WOLF,
+                value:{
+                    type:v,
+                    value:selectedColumns[0]
+                }
+            }
+            dispatch(action);
         }
     }
 
     return(
         <Fragment>
             <div className="d-flex flex-column">
-                <button onClick={onBorderButtonClick.bind(this,'T')} className='btn btn-primary m-1'>Border Top</button>
-                <button onClick={onBorderButtonClick.bind(this,'R')} className='btn btn-primary m-1'>Border Right</button>
-                <button onClick={onBorderButtonClick.bind(this,'B')} className='btn btn-primary m-1'>Border Bottom</button>
-                <button onClick={onBorderButtonClick.bind(this,'L')} className='btn btn-primary m-1'>Border Left</button>
+                <button onClick={onClickBorderButton.bind(this,'T')} className='btn btn-primary m-1'>Border Top</button>
+                <button onClick={onClickBorderButton.bind(this,'R')} className='btn btn-primary m-1'>Border Right</button>
+                <button onClick={onClickBorderButton.bind(this,'B')} className='btn btn-primary m-1'>Border Bottom</button>
+                <button onClick={onClickBorderButton.bind(this,'L')} className='btn btn-primary m-1'>Border Left</button>
+
+                <button onClick={onClickUnSelectColumns} className='btn btn-primary m-1 mt-3'>unselect columns</button>
+                
+                <button onClick={onClickSetWolfThomas.bind(this,'wolf')} className='btn btn-danger m-1 mt-3'>Set Wolf</button>
+                <button onClick={onClickSetWolfThomas.bind(this,'thomas')} className='btn btn-success m-1 mt-3'>Set Thomas</button>
             </div>
         </Fragment>
     )

@@ -10,7 +10,9 @@ const initialState = {
     createGame:{
         dimension:0,
         puzzleLayout:[],
-        selectedColumns:[]
+        selectedColumns:[],
+        thomas:{},
+        wolf:{}
     },
     mode:''
 
@@ -67,6 +69,32 @@ const Reducer = (state=initialState, action)=>{
                 createGame:{
                     ...state.createGame,
                     puzzleLayout: action.value
+                }
+            }
+        case actions.ON_UNSELECT_COLUMNS: 
+            return {
+                ...state,
+                createGame:{
+                    ...state.createGame,
+                    selectedColumns:[]
+                }
+            }
+        case actions.ON_SET_THOMAS_WOLF:
+            if(value.type==='thomas'){
+                return {
+                    ...state,
+                    createGame:{
+                        ...state.createGame,
+                        thomas:value.value
+                    }
+                }
+            }
+
+            return {
+                ...state,
+                createGame:{
+                    ...state.createGame,
+                    wolf:value.value
                 }
             }
         case actions.ON_CHANGE_MODE:
