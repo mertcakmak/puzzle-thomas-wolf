@@ -2,6 +2,7 @@ import React,{useState, useEffect, Fragment} from "react";
 import * as actions from '../../store/actions';
 import { useSelector, useDispatch } from "react-redux";
 import Row from "./Row";
+import ColumnDecorator from "./ColumnDecorator";
 
 export default function Layout(props){
     // const {dimension} = props;
@@ -39,11 +40,6 @@ export default function Layout(props){
 
 
     const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
-    console.log('===');
-    console.log(selectedColumns);
-
-    
-    
 
     if(dimension===undefined || dimension===0){
         return(
@@ -55,12 +51,24 @@ export default function Layout(props){
     return(
         <Fragment>
             <div className='shadow-lg m-4 bg-white'>
-            {puzzleLayout.map((item,key)=>{
-                return(
-                    <Row key={key} columns={item} dimension={dimension}/>
-                )
-            })}
+
+                <div className='d-flex'>
+                    <div>
+                        {puzzleLayout.map((item,key)=>{
+                            return(
+                                <Row key={key} columns={item} dimension={dimension}/>
+                            )
+                        })}
+                    </div>
+                    <div>
+                        <ColumnDecorator />
+                    </div>
+                </div>
+
+            
             </div>
+
+
         </Fragment>
     )
 }

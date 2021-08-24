@@ -61,7 +61,14 @@ const Reducer = (state=initialState, action)=>{
                     selectedColumns: distinctArray(selectedColumns)
                 }
             }
-
+        case actions.ON_UPDATE_PUZZLE_LAYOUT:
+            return {
+                ...state,
+                createGame:{
+                    ...state.createGame,
+                    puzzleLayout: action.value
+                }
+            }
         case actions.ON_CHANGE_MODE:
             return {
                 ...state,
