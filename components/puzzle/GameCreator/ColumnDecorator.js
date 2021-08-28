@@ -11,7 +11,7 @@ const defaultBorders = [
     {borderPosition:'L', buttonTitle:'Border Left'},
 ]
 
-export default function ColumnDecorator(){
+export default function ColumnDecorator(props){
     const createModeThomas = useSelector(state=>state.createGame.thomas);
     const createModeWolf = useSelector(state=>state.createGame.wolf);
     const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
@@ -34,10 +34,6 @@ export default function ColumnDecorator(){
         dispatch(action);
     }
 
-    const onClickSavePuzzleButton = ()=>{
-        console.log('onClickSavePuzzleButton');
-    }
-
     const borderButtonsArr = selectedColumns.length > 0 ? defaultBorders : [];
     const showUnsetThomasWolfButton = (createModeThomas.row===undefined && createModeWolf.row===undefined) ? false : true;
     
@@ -53,7 +49,7 @@ export default function ColumnDecorator(){
                 {selectedColumns.length>0 && <button onClick={onClickUnSelectColumns} className='btn btn-primary m-1 mt-3'>unselect columns</button>}
                 {showUnsetThomasWolfButton && <button onClick={onClickUnSetThomasWolf} className='btn btn-warning m-1 mt-3'>Unset Thomas & Wolf</button>}
 
-                <button onClick={onClickSavePuzzleButton} className='btn btn-dark m-1'>Save Puzzle</button>
+                <button onClick={props.onClickSavePuzzleButton} className='btn btn-dark m-1'>Save Puzzle</button>
                 
                 <ButtonSetThomasWolf setType='wolf' btnClass='btn-danger' title='Wolf' />
                 <ButtonSetThomasWolf setType='thomas' btnClass='btn-success' title='Thomas' />

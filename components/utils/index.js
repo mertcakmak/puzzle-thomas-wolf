@@ -33,3 +33,13 @@ export const distinctArray = (arr)=>{
     }
     return result;
 }
+
+export const puzzleLayoutToLayoutData = (puzzleLayout)=>{
+    const rs = [];
+    puzzleLayout.map((row)=>{
+        row.map((column)=>{
+            rs.push(column);
+        })
+    });
+    return rs;
+}

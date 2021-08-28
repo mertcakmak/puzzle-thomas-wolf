@@ -1,45 +1,18 @@
-import React,{useState, useEffect, Fragment} from "react";
-import * as actions from '../../store/actions';
+import React,{Fragment} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Row from "./Row";
 import ColumnDecorator from "./GameCreator/ColumnDecorator";
+import { puzzleLayoutToLayoutData } from "../utils";
+import * as actions from '../../store/actions';
 
 export default function Layout(props){
-    // const {dimension} = props;
-    // const [puzzleLayout,setPuzzleLayout] = useState([]);
+    const createModeThomas = useSelector(state=>state.createGame.thomas);
+    const createModeWolf = useSelector(state=>state.createGame.wolf);
     const createGameParams =  useSelector(state=>state.createGame);
+    const games =  useSelector(state=>state.games);
     const {dimension, puzzleLayout} = createGameParams;
-
+    
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     if(parseInt(dimension)>0){
-    //         const newPuzzleLayout = [];
-    //         for(let i=1; i<=dimension; i++){
-    //             newPuzzleLayout[i-1]
-
-    //             if(!newPuzzleLayout[i-1]) { newPuzzleLayout[i-1] = []; }
-    //             for(let k=1; k<=dimension; k++){
-    //                 const item ={row: i,column:k,borders:''};
-    //                 newPuzzleLayout[i-1].push(item);
-    //             } 
-    //         }
-    //         setPuzzleLayout(newPuzzleLayout);
-    //     }
-    // },[dimension])
-
-    // dispatch({
-    //     type:actions.ON_MOVE_THOMAS,
-    //     value:{}
-    // });
-
-    // dispatch({
-    //     type:actions.ON_MOVE_WOLF,
-    //     value:{}
-    // });
-
-
-    const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
 
     if(dimension===undefined || dimension===0){
         return(
@@ -47,11 +20,30 @@ export default function Layout(props){
         )
     }
 
-    
+    const onClickSavePuzzleButton = ()=>{
+        const dataLayout = puzzleLayoutToLayoutData(puzzleLayout);
+
+        const rs = {
+            name:'LOREM IPSUM DOLOR SIT AMET',
+            description:'LOREM IPSUM DOLOR SIT AMET',
+            layout:dataLayout,
+            wolf:createModeWolf,
+            thomas:createModeThomas,
+            userCreated:true
+        }
+
+        games.push(rs);
+        const action = {
+            type:actions.ON_ADD_NEW_GAME_DATA,
+            value:games
+        }
+        dispatch(action);
+    }
+
+
     return(
         <Fragment>
             <div className='shadow-lg m-4 bg-white'>
-
                 <div className='d-flex'>
                     <div>
                         {puzzleLayout.map((item,key)=>{
@@ -61,14 +53,10 @@ export default function Layout(props){
                         })}
                     </div>
                     <div>
-                        <ColumnDecorator />
+                        <ColumnDecorator onClickSavePuzzleButton={onClickSavePuzzleButton} />
                     </div>
                 </div>
-
-            
             </div>
-
-
         </Fragment>
     )
 }

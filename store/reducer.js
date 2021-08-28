@@ -114,6 +114,21 @@ const Reducer = (state=initialState, action)=>{
                 ...state,
                 mode:action.value
             }
+        case actions.ON_ADD_NEW_GAME_DATA:
+            return{
+                ...state,
+                games:action.value,
+                wolf:{},
+                thomas:{},
+                createGame:{
+                    ...state.createGame,
+                    dimension:action.value.dimension,
+                    puzzleLayout:action.value.puzzleLayout,
+                    selectedColumns:[],
+                    thomas:{},
+                    wolf:{},
+                }
+            }
         default:
             return state;
     }

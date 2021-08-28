@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 export default function Home() {
   const games = useSelector(state=>state.games);
-
   const router = useRouter();
   const dispatch = useDispatch();
   
