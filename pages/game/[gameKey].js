@@ -96,13 +96,8 @@ export default function Game(props){
                             <FontAwesomeIcon icon={faChevronDown} />
                             </button>
                         </div>
-
-
-
                     </div>
                 </div>
-                
-
             </div>
         </div>
         

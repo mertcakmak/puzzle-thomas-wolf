@@ -114,7 +114,7 @@ const Reducer = (state=initialState, action)=>{
                 ...state,
                 mode:action.value
             }
-        case actions.ON_ADD_NEW_GAME_DATA:
+        case actions.ON_UPDATE_GAME_DATA:
             return{
                 ...state,
                 games:action.value,

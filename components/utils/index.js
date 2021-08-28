@@ -17,7 +17,6 @@ export const createLayout = (dimension=0)=>{
     return rs;
 }
 
-
 export const distinctArray = (arr)=>{
     const result = [];
     const map = new Map();
@@ -34,7 +33,7 @@ export const distinctArray = (arr)=>{
     return result;
 }
 
-export const puzzleLayoutToLayoutData = (puzzleLayout)=>{
+export const puzzleLayoutToLayoutData = (puzzleLayout=[])=>{
     const rs = [];
     puzzleLayout.map((row)=>{
         row.map((column)=>{

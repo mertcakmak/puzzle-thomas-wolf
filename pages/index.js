@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import {ListGroup} from 'react-bootstrap';
 import * as actions from '../store/actions';
 import Link from 'next/link';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   const games = useSelector(state=>state.games);
@@ -19,6 +21,16 @@ export default function Home() {
     }
     dispatch(action);
     router.push('/game/create');
+  }
+
+  const onRemoveGameButton = (indexValue)=>{
+    const newGames = [...games];
+    newGames.splice(indexValue, 1);
+    const action = {
+      type:actions.ON_UPDATE_GAME_DATA,
+      value:newGames
+    }
+    dispatch(action);
   }
 
   return (
@@ -50,7 +62,20 @@ export default function Home() {
         games.map((item,key)=>{
           return(
             <div className='card shadow-lg mb-3' key={key}>
-              <div className='card-header'>{item.name}</div>
+              <div className='card-header'>
+                <div className='d-flex justify-content-between align-items-center'>
+                  <div>{item.name}</div>
+                  <div>
+                    {
+                      (item.userCreated!==undefined && item.userCreated)
+                      &&
+                      <button onClick={onRemoveGameButton.bind(this,key)} className='btn btn-sm btn-danger'>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </button>
+                    }
+                  </div>
+                </div>
+              </div>
               <div className='card-body'>
                 {item.description}
                 <div className='mt-3'>
