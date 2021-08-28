@@ -2,7 +2,7 @@ import React,{useState, useEffect, Fragment} from "react";
 import * as actions from '../../store/actions';
 import { useSelector, useDispatch } from "react-redux";
 import Row from "./Row";
-import ColumnDecorator from "./ColumnDecorator";
+import ColumnDecorator from "./GameCreator/ColumnDecorator";
 
 export default function Layout(props){
     // const {dimension} = props;

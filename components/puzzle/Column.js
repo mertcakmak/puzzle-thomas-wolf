@@ -41,11 +41,15 @@ export default function Column(props){
     if(mode==='create'){    
     
         const indexValue = selectedColumns.findIndex(item=>JSON.stringify(item)===JSON.stringify({row:params.row, column:params.column}));
-        let buttonClass =   indexValue===-1 ? ' btn-light ' : ' btn-info ';
+        let buttonClass =  indexValue===-1 ? ' btn-light ' : ' btn-info ';
+
+        buttonClass += JSON.stringify(createModeThomas)===JSON.stringify({row:params.row, column:params.column}) && ' btn-outline-success '; 
+        buttonClass += JSON.stringify(createModeWolf)===JSON.stringify({row:params.row, column:params.column}) && ' btn-outline-danger '; 
 
         return(
-            <div row={params.row} column={params.column} className={`puzzleColumn ${classValue}`}>
-                <button onClick={onColumnClicked.bind(this,params.row, params.column)} className={`btn ${buttonClass}`}>{params.row}{params.column}</button>
+            <div row={params.row} column={params.column} className={`puzzleColumn  ${classValue}`}>
+                <button onClick={onColumnClicked.bind(this,params.row, params.column)} 
+                className={`btn ${buttonClass}`}>{params.row}{params.column}</button>
             </div>
         )    
     }

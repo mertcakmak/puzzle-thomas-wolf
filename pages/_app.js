@@ -4,7 +4,9 @@ import { createStore} from 'redux';
 import { Provider } from 'react-redux';
 import Reducer from '../store/reducer';
 
-const store = createStore(Reducer);
+const store = createStore(
+  Reducer
+);
 
 function MyApp({ Component, pageProps }) {
   return (
