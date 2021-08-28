@@ -49,7 +49,7 @@ export default function Home() {
       {
         games.map((item,key)=>{
           return(
-            <div className='card shadow-lg' key={key}>
+            <div className='card shadow-lg mb-3' key={key}>
               <div className='card-header'>{item.name}</div>
               <div className='card-body'>
                 {item.description}

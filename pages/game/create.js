@@ -1,25 +1,20 @@
-import React,{useState,useEffect} from 'react';
-import Layout from '../../components/puzzle/Layout';
-import {createRangeArray, createLayout} from '../../components/utils';
+import React,{useState,useEffect, useRef} from 'react';
+import Layout from '../../components/puzzle/GameCreator/Layout';
+import {createRangeArray, createLayout, puzzleLayoutToLayoutData} from '../../components/utils';
 import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 
 export default function CreateGame(){
-    // const [dimension,setDimension] = useState(0);
-    
-    const dimensionList = [];
-
-    // useEffect(() => {
-    //     setDimension(0);
-    // }, [dimension])
-
+    const games =  useSelector(state=>state.games);
+    const createGameParams =  useSelector(state=>state.createGame);
     const dispatch = useDispatch();
+    const titleRef = useRef();
+    const descriptionRef = useRef();
 
     const onSelectDimension = (e)=>{
-        //setDimension(e.target.value);
         const dimension = e.target.value;
         const puzzleLayout = createLayout(dimension);
         const action = {
@@ -33,6 +28,25 @@ export default function CreateGame(){
         type:actions.ON_CHANGE_MODE,
         value:'create'
     });
+
+    const onClickSaveButton = ()=>{
+        const dataLayout = puzzleLayoutToLayoutData(createGameParams.puzzleLayout);
+        const rs = {
+            name:titleRef.current.value,
+            description:descriptionRef.current.value,
+            layout:dataLayout,
+            wolf:createGameParams.wolf,
+            thomas:createGameParams.thomas,
+            userCreated:true
+        }
+        
+        games.push(rs);
+        const action = {
+            type:actions.ON_ADD_NEW_GAME_DATA,
+            value:games
+        }
+        dispatch(action);
+    }
 
 
     return(
@@ -74,17 +88,18 @@ export default function CreateGame(){
 
                     <div className='form-group'>
                         <label>Title</label>
-                        <input type='text' className='form-control form-control-sm'/>
+                        <input type='text' className='form-control form-control-sm' ref={titleRef}/>
                     </div>
 
                     <div className='form-group'>
                         <label>Description</label>
-                        <textarea className='form-control form-control-sm'></textarea>
+                        <textarea className='form-control form-control-sm' ref={descriptionRef}></textarea>
                     </div>
+
+                    <button onClick={onClickSaveButton} className='btn btn-dark'>SAve</button>
                 </div>
                 <div className=' flex-grow-1'>
-                    {/* <Layout dimension={dimension} /> */}
-                    <Layout/>
+                    <Layout titleRef={titleRef} descriptionRef={descriptionRef}/>
                 </div>
             </div>
 
