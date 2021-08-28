@@ -16,6 +16,8 @@ export default function ColumnDecorator(){
     const createModeWolf = useSelector(state=>state.createGame.wolf);
     const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
 
+    const {dimension, puzzleLayout} =  useSelector(state=>state.createGame);
+
     const dispatch = useDispatch();
     
     const onClickUnSelectColumns = ()=>{
@@ -31,6 +33,54 @@ export default function ColumnDecorator(){
             type:actions.ON_UNSET_THOMAS_WOLF,
             value: []
         }
+        dispatch(action);
+    }
+
+    const onClickBorderAllCorners = ()=>{
+        const newPuzzleLayout = [...puzzleLayout];
+
+        for(let i=0; i<dimension; i++){
+            for(let k=0; k<dimension; k++){
+                if(newPuzzleLayout[i][k]['row']===1 && newPuzzleLayout[i][k]['borders'].indexOf('T')===-1){
+                    newPuzzleLayout[i][k]['borders'] += 'T';
+                }
+
+                if(newPuzzleLayout[i][k]['column']===1 && newPuzzleLayout[i][k]['borders'].indexOf('L')===-1){
+                    newPuzzleLayout[i][k]['borders'] += 'L';
+                }
+
+                if(newPuzzleLayout[i][k]['row']===parseInt(dimension) && newPuzzleLayout[i][k]['borders'].indexOf('B')===-1){
+                    newPuzzleLayout[i][k]['borders'] += 'B';
+                }
+
+                if(newPuzzleLayout[i][k]['column']===parseInt(dimension) && newPuzzleLayout[i][k]['borders'].indexOf('R')===-1){
+                    newPuzzleLayout[i][k]['borders'] += 'R';
+                }
+            }
+        }
+
+        const action = {
+            type:actions.ON_UPDATE_PUZZLE_LAYOUT,
+            value:newPuzzleLayout
+        }
+
+        dispatch(action);
+    }
+
+    const onClickClickAllBorders = ()=>{
+        const newPuzzleLayout = [...puzzleLayout];
+
+        for(let i=0; i<dimension; i++){
+            for(let k=0; k<dimension; k++){
+                newPuzzleLayout[i][k]['borders'] = '';   
+            }
+        }
+
+        const action = {
+            type:actions.ON_UPDATE_PUZZLE_LAYOUT,
+            value:newPuzzleLayout
+        }
+
         dispatch(action);
     }
 
@@ -51,6 +101,10 @@ export default function ColumnDecorator(){
                 
                 <ButtonSetThomasWolf setType='wolf' btnClass='btn-danger' title='Wolf' />
                 <ButtonSetThomasWolf setType='thomas' btnClass='btn-success' title='Thomas' />
+
+                <button onClick={onClickBorderAllCorners} className='btn btn-warning'>Border all corners</button>
+
+                <button onClick={onClickClickAllBorders} className='btn btn-warning mt-1 mb-1'>Clear all border</button>
             </div>
         </Fragment>
     )
