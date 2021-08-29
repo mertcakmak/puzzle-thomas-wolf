@@ -1,9 +1,6 @@
-import React,{useState,useEffect, useRef} from 'react';
+import React,{useRef} from 'react';
 import Layout from '../../components/puzzle/GameCreator/Layout';
 import {createRangeArray, createLayout, puzzleLayoutToLayoutData} from '../../components/utils';
-import Link from 'next/link';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import { useRouter } from "next/router";
@@ -90,28 +87,7 @@ export default function CreateGame(){
 
     return(
         <div className='container mt-5'>
-
-            {/* <div className='d-flex w-100 align-items-center mb-5 border-bottom pb-4'>
-                <div className='mr-5 d-block'>
-                    <Link href='/'>
-                        <a>
-                            <div className='d-flex align-items-center'>
-                                <FontAwesomeIcon icon={faChevronLeft} />
-                                <div className='ml-2'>Back</div>
-                            </div>
-                        </a>
-                        
-                    </Link>
-                </div>
-
-                <div className='flex-grow-1'>
-                    <h3>Create a new game</h3>
-                </div>
-            </div> */}
-
             <Breadcrumb>
-            
-                {/* <Link href='/'><a>Home</a></Link> */}
                 <Breadcrumb.Item onClick={()=>{router.push('/')}} >Home</Breadcrumb.Item>
                 <Breadcrumb.Item active>Create New Game</Breadcrumb.Item>
             </Breadcrumb>

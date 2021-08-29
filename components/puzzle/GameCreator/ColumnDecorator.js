@@ -4,14 +4,7 @@ import * as actions from '../../../store/actions';
 import ButtonSetThomasWolf from "./ButtonSetThomasWolf";
 import ButtonSetBorder from "./ButtonSetBorder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBorderAll, faBorderNone, faBorderStyle, faHandPointer, faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-
-const defaultBorders = [
-    {borderPosition:'T', buttonTitle:'Border Top'},
-    {borderPosition:'R', buttonTitle:'Border Right'},
-    {borderPosition:'B', buttonTitle:'Border Bottom'},
-    {borderPosition:'L', buttonTitle:'Border Left'},
-]
+import { faBorderAll, faBorderNone, faBorderStyle} from "@fortawesome/free-solid-svg-icons";
 
 export default function ColumnDecorator(){
     const createModeThomas = useSelector(state=>state.createGame.thomas);
@@ -86,7 +79,6 @@ export default function ColumnDecorator(){
         dispatch(action);
     }
 
-    const borderButtonsArr = selectedColumns.length > 0 ? defaultBorders : [];
     const showUnsetThomasWolfButton = (createModeThomas.row===undefined && createModeWolf.row===undefined) ? false : true;
     
     return(
@@ -115,7 +107,7 @@ export default function ColumnDecorator(){
                     
                     <div className='d-flex align-items-center ali'>
                         <ButtonSetBorder borderPosition={'L'} buttonTitle={'Left'} icon={faBorderStyle} iconRotation='' />
-                        {/* <div className='bg-success w-100 text-white rounded border flex-fill  text-center p-2  small'>Thomas</div>     */}
+                        
                         <button onClick={onClickUnSelectColumns} className='btn btn-light btn-sm '>
                             <small>UnSelect</small>
                         </button>

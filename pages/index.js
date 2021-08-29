@@ -33,8 +33,6 @@ export default function Home() {
     dispatch(action);
   }
 
-  console.log(games);
-
   return (
     <div className="container mt-5">
       <h1>Puzzle: Thomas and the Wolf</h1>
