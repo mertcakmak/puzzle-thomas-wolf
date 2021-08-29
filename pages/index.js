@@ -1,9 +1,38 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useRouter } from "next/router";
 import {ListGroup} from 'react-bootstrap';
+import * as actions from '../store/actions';
 import Link from 'next/link';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   const games = useSelector(state=>state.games);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  
+  const onCreateNewGame = ()=>{
+    const action = {
+      type: actions.ON_CHANGE_CREATE_GAME_DIMENSION,
+      value:{
+        dimension:0,
+        layout:[]
+      }
+    }
+    dispatch(action);
+    router.push('/game/create');
+  }
+
+  const onRemoveGameButton = (indexValue)=>{
+    const newGames = [...games];
+    newGames.splice(indexValue, 1);
+    const action = {
+      type:actions.ON_UPDATE_GAME_DATA,
+      value:newGames
+    }
+    dispatch(action);
+  }
+
   return (
     <div className="container mt-5">
       <h1>Puzzle: Thomas and the Wolf</h1>
@@ -22,13 +51,31 @@ export default function Home() {
         <ListGroup.Item className='small p-1'>The game is lost if the wolf reaches Thomas during its turn</ListGroup.Item>          
       </ListGroup>
 
-      <h3 className='mb-3'>Games ({games.length})</h3>
+      <div className='d-flex justify-content-lg-between align-items-center border-bottom mb-3 pb-2'>
+        <h3 className=''>Games ({games.length})</h3>
+        <button onClick={onCreateNewGame} className='btn btn-sm btn-primary'>+ Create New Game</button>
+        
+      </div>
+      
 
       {
         games.map((item,key)=>{
           return(
-            <div className='card shadow-lg' key={key}>
-              <div className='card-header'>{item.name}</div>
+            <div className='card shadow-lg mb-3' key={key}>
+              <div className='card-header'>
+                <div className='d-flex justify-content-between align-items-center'>
+                  <div>{item.name}</div>
+                  <div>
+                    {
+                      (item.userCreated!==undefined && item.userCreated)
+                      &&
+                      <button onClick={onRemoveGameButton.bind(this,key)} className='btn btn-sm btn-danger'>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </button>
+                    }
+                  </div>
+                </div>
+              </div>
               <div className='card-body'>
                 {item.description}
                 <div className='mt-3'>

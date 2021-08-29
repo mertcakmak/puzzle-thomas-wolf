@@ -25,10 +25,16 @@ a {
   align-items: center;
   background: #f9f9f9;
 }
-.border-T { border-top: 1px solid rgba(0, 0, 0,0.2); }
-.border-R { border-right: 1px solid rgba(0, 0, 0,0.2); }
-.border-B { border-bottom: 1px solid rgba(0, 0, 0,0.2); }
-.border-L {  border-left: 1px solid rgba(0, 0, 0,0.2);}
+.border-T { border-top: 1px solid rgba(0, 0, 0,0.5); }
+.border-R { border-right: 1px solid rgba(0, 0, 0,0.5); }
+.border-B { border-bottom: 1px solid rgba(0, 0, 0,0.5); }
+.border-L {  border-left: 1px solid rgba(0, 0, 0,0.5);}
 
 .puzzleColumn.wolf { background: red; color: #fff;}
 .puzzleColumn.thomas { background: green; color: #fff;}
+
+.w-10px { width: 10px !important; }
+.w-25px { width: 25px !important; }
+.w-50px { width: 50px !important; }
+.w-75px { width: 75px !important; }
+.w-100px { width: 100px !important; }
