@@ -19,11 +19,11 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 You will see the main game data in the `[data]` folder. You can add a new layout or edit the existing one. We have only 2 sample games. You can use the 'Greate New Game' module and play on your onw game. If you want to store your own games you have to put them into the /data/gameData.json file.
 
 #### HOME PAGE
-![alt text](https://github.com/mertcakmak/puzzle-thomas-wolf/blob/feature/createNewGame/images/home.png?raw=true)
+![alt text](https://github.com/mertcakmak/puzzle-thomas-wolf/blob/master/images/home.png?raw=true)
 
 #### GAME PAGE
-![alt text](https://github.com/mertcakmak/puzzle-thomas-wolf/blob/feature/createNewGame/images/game.png?raw=true)
+![alt text](https://github.com/mertcakmak/puzzle-thomas-wolf/blob/master/images/game.png?raw=true)
 
 #### CREATE GAME MODULE
-![alt text](https://github.com/mertcakmak/puzzle-thomas-wolf/blob/feature/createNewGame/images/creategame.png?raw=true)
+![alt text](https://github.com/mertcakmak/puzzle-thomas-wolf/blob/master/images/creategame.png?raw=true)
             
