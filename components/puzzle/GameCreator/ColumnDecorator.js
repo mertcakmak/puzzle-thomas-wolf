@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../../store/actions';
 import ButtonSetThomasWolf from "./ButtonSetThomasWolf";
 import ButtonSetBorder from "./ButtonSetBorder";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBorderAll, faBorderNone, faBorderStyle, faHandPointer, faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const defaultBorders = [
     {borderPosition:'T', buttonTitle:'Border Top'},
@@ -89,22 +91,52 @@ export default function ColumnDecorator(){
     
     return(
         <Fragment>
-            <div className="d-flex flex-column">
-                {borderButtonsArr.map((item,key)=>{
-                    return(
-                        <ButtonSetBorder key={key} borderPosition={item.borderPosition} buttonTitle={item.buttonTitle} />
-                    )
-                })}
+            <div className="d-flex flex-column h-100">
 
-                {selectedColumns.length>0 && <button onClick={onClickUnSelectColumns} className='btn btn-primary m-1 mt-3'>unselect columns</button>}
-                {showUnsetThomasWolfButton && <button onClick={onClickUnSetThomasWolf} className='btn btn-warning m-1 mt-3'>Unset Thomas & Wolf</button>}
+                <div className='d-flex'>
+                    <button onClick={onClickBorderAllCorners} className='btn btn-warning btn-sm m-1 w-50'>
+                        <FontAwesomeIcon icon={faBorderAll} />
+                        <small className='ml-1'>Corners</small>
+                    </button>
+
+                    <button onClick={onClickClickAllBorders} className='btn btn-warning btn-sm m-1 w-50 '>
+                        <FontAwesomeIcon icon={faBorderNone} />
+                        <small className='ml-1'>Clear All </small>
+                    </button>
+                </div>
+
+
+                <div className='flex-grow-1'>
+                {
+                selectedColumns.length>0 
+                &&
+                <div className='d-flex flex-column align-items-center h-100 align-content-center align-items-md-center justify-content-center'>
+                    <ButtonSetBorder borderPosition={'T'} buttonTitle={'Top'} icon={faBorderStyle} iconRotation='90'/>
+                    
+                    <div className='d-flex align-items-center ali'>
+                        <ButtonSetBorder borderPosition={'L'} buttonTitle={'Left'} icon={faBorderStyle} iconRotation='' />
+                        {/* <div className='bg-success w-100 text-white rounded border flex-fill  text-center p-2  small'>Thomas</div>     */}
+                        <button onClick={onClickUnSelectColumns} className='btn btn-light btn-sm '>
+                            <small>UnSelect</small>
+                        </button>
+                        <ButtonSetBorder borderPosition={'R'} buttonTitle={'Right'} icon={faBorderStyle} iconRotation='90' />
+                    </div>
+
+                    <ButtonSetBorder borderPosition={'B'} buttonTitle={'Bottom'} icon={faBorderStyle} iconRotation='180' />
+
+                </div>
+                }
+                </div>
+
+                <div className='d-flex flex-column'>
+                    {showUnsetThomasWolfButton && <button onClick={onClickUnSetThomasWolf} className='btn btn-sm btn-warning flex-grow-1 m-1 '>Unset Thomas/Wolf</button>}
+                    <div className='d-flex'>
+                        <ButtonSetThomasWolf setType='wolf' btnClass='btn-danger flex-grow-1 btn-sm m-1' title='Wolf' />
+                        <ButtonSetThomasWolf setType='thomas' btnClass='btn-success flex-grow-1 btn-sm m-1' title='Thomas' />
+                    </div>
+                </div>
+
                 
-                <ButtonSetThomasWolf setType='wolf' btnClass='btn-danger' title='Wolf' />
-                <ButtonSetThomasWolf setType='thomas' btnClass='btn-success' title='Thomas' />
-
-                <button onClick={onClickBorderAllCorners} className='btn btn-warning'>Border all corners</button>
-
-                <button onClick={onClickClickAllBorders} className='btn btn-warning mt-1 mb-1'>Clear all border</button>
             </div>
         </Fragment>
     )

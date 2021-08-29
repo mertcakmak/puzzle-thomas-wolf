@@ -3,10 +3,11 @@ import Layout from '../../components/puzzle/GameCreator/Layout';
 import {createRangeArray, createLayout, puzzleLayoutToLayoutData} from '../../components/utils';
 import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import { useRouter } from "next/router";
+import { Breadcrumb } from 'react-bootstrap';
 
 export default function CreateGame(){
     const games =  useSelector(state=>state.games);
@@ -85,11 +86,12 @@ export default function CreateGame(){
         router.push('/');
     }
 
+    
 
     return(
         <div className='container mt-5'>
 
-            <div className='d-flex w-100 align-items-center mb-5 border-bottom pb-4'>
+            {/* <div className='d-flex w-100 align-items-center mb-5 border-bottom pb-4'>
                 <div className='mr-5 d-block'>
                     <Link href='/'>
                         <a>
@@ -105,39 +107,47 @@ export default function CreateGame(){
                 <div className='flex-grow-1'>
                     <h3>Create a new game</h3>
                 </div>
-            </div>
+            </div> */}
 
-            <div className='d-flex w-100'>
-                <div className=''>
-                    <div className='form-group'>
-                        <label>Dimension</label>
-                        <select onChange={onSelectDimension} className='form-control form-control-sm' ref={dimensionRef}>
-                            <option key='0' value='0'>Please select a dimension</option>
-                            {
-                                createRangeArray(5,12).map((i)=>{
-                                    return(
-                                        <option key={i} value={i}>{i}x{i}</option>
-                                    )
-                                })
-                            }
-                        </select>
+            <Breadcrumb>
+            
+                {/* <Link href='/'><a>Home</a></Link> */}
+                <Breadcrumb.Item onClick={()=>{router.push('/')}} >Home</Breadcrumb.Item>
+                <Breadcrumb.Item active>Create New Game</Breadcrumb.Item>
+            </Breadcrumb>
+
+            
+            <div className='shadow-lg rounded bg-white d-flex flex-column w-100 '>
+                <div className='d-flex w-100 border-bottom p-2 pt-4'>
+                    <div className='m-1'>
+                        <div className='form-group'>
+                            <select onChange={onSelectDimension} className='form-control form-control-sm' ref={dimensionRef}>
+                                <option key='0' value='0'>Dimension</option>
+                                {
+                                    createRangeArray(5,12).map((i)=>{
+                                        return(
+                                            <option key={i} value={i}>{i}x{i}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
                     </div>
-
-                    <div className='form-group'>
-                        <label>Title</label>
-                        <input type='text' className='form-control form-control-sm' ref={titleRef}/>
+                    <div className='m-1'>
+                        <div className='form-group'>
+                            <input type='text' className='form-control form-control-sm' placeholder='Game title' ref={titleRef}/>
+                        </div>
                     </div>
-
-                    <div className='form-group'>
-                        <label>Description</label>
-                        <textarea className='form-control form-control-sm' ref={descriptionRef}></textarea>
+                    <div className='m-1 flex-grow-1'>
+                        <div className='form-group'>
+                            <input type='text' className='form-control form-control-sm' placeholder='Description' ref={descriptionRef}/>
+                        </div>
                     </div>
-
-                    <button onClick={onClickSaveButton} className='btn btn-dark'>SAve</button>
-                </div>
-                <div className=' flex-grow-1'>
-                    <Layout titleRef={titleRef} descriptionRef={descriptionRef}/>
-                </div>
+                    <div className='m-1'>
+                        <button onClick={onClickSaveButton} className='btn btn-sm btn-dark'>Save</button>
+                    </div>
+                </div>    
+                <Layout titleRef={titleRef} descriptionRef={descriptionRef}/>
             </div>
 
         </div>

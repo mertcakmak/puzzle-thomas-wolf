@@ -93,7 +93,7 @@ export default function Game(props){
                                 </button>
                             </div>
                             <button className='btn btn-sm btn-light m-2' onClick={onArrowClick.bind(this,'ArrowDown')}>
-                            <FontAwesomeIcon icon={faChevronDown} />
+                                <FontAwesomeIcon icon={faChevronDown} />
                             </button>
                         </div>
                     </div>

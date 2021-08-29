@@ -49,7 +49,7 @@ export default function ButtonSetThomasWolf(props){
 
     if(selectedColumns.length==1 && showButton){
         return(
-            <button onClick={onClickSetWolfThomas} className={`btn ${btnClass} m-1 mt-3`}>{buttonTitle}</button>
+            <button onClick={onClickSetWolfThomas} className={`btn ${btnClass}`}>{buttonTitle}</button>
         )
     }
 

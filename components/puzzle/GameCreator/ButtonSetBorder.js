@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from '../../../store/actions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBorderAll, faBorderNone, faBorderStyle, faHandPointer, faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function ButtonSetBorder(props){
-    const {borderPosition, buttonTitle} = props;
+    const {borderPosition, buttonTitle, icon, iconRotation} = props;
     const puzzleLayout = useSelector(state=>state.createGame.puzzleLayout);
     const selectedColumns = useSelector(state=>state.createGame.selectedColumns);
 
@@ -26,6 +28,9 @@ export default function ButtonSetBorder(props){
     }
 
     return(
-        <button onClick={onClickBorderButton} className='btn btn-primary m-1'>{buttonTitle}</button>
+        <button onClick={onClickBorderButton} className='btn btn-secondary btn-sm m-1'>
+            <FontAwesomeIcon icon={faBorderStyle} className='mr-1'/>
+            <small>{buttonTitle}</small>
+        </button>
     )
 }
