@@ -24,10 +24,6 @@ export const distinctArray = (arr)=>{
         if(!map.has(`${item.row}-${item.column}`)){
             map.set(`${item.row}-${item.column}`, true);    // set any value to Map
             result.push(item);
-            // result.push({
-            //     row: item.id,
-            //     name: item.name
-            // });
         }
     }
     return result;
