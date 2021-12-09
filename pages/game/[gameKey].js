@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Loader from '../../components/utils/Loader';
 import Puzzle from '../../components/puzzle/Puzzle';
 import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import * as actions from  '../../store/actions';
 
 export default function Game(props){
     const {gameKey} = props;
@@ -16,6 +17,12 @@ export default function Game(props){
     const puzzleRef = useRef();
 
     const router = useRouter();
+
+    const dispatch = useDispatch();
+    dispatch({
+        type:actions.ON_CHANGE_MODE,
+        value:'game'
+    });
 
     useEffect(()=>{
         if(games[gameKey]) {
@@ -35,7 +42,6 @@ export default function Game(props){
     const onArrowClick = (direction)=>{
         puzzleRef.current.onArrowClick(direction);
     }
-
 
     return (
         <div className='container mt-3'>
@@ -62,15 +68,14 @@ export default function Game(props){
                         <div className='p-4 text-center'>
                             <h1>{moveCount-1}</h1>
                             <small>Moves</small>
-                        </div>
-                        
+                        </div>  
                     </div>
                 </div>
 
                 <hr/>
 
                 <div className='d-flex w-100 '>
-                    <div className='d-flex flex-grow-1  bg-light m-3 p-3 rounded shadow-lg border flex-column align-items-center justify-content-center'>
+                    <div className='d-flex flex-grow-1 bg-white m-3 p-3 rounded shadow-lg border flex-column align-items-center justify-content-center'>
                         <Puzzle selectedGame={selectedGame} ref={puzzleRef} moveCount={moveCount} setMoveCount={setMoveCount}/>
                     </div>
                     <div className='d-flex flex-column align-items-center p-3 bg-dark shadow-lg m-3 rounded'>
@@ -88,16 +93,11 @@ export default function Game(props){
                                 </button>
                             </div>
                             <button className='btn btn-sm btn-light m-2' onClick={onArrowClick.bind(this,'ArrowDown')}>
-                            <FontAwesomeIcon icon={faChevronDown} />
+                                <FontAwesomeIcon icon={faChevronDown} />
                             </button>
                         </div>
-
-
-
                     </div>
                 </div>
-                
-
             </div>
         </div>
         

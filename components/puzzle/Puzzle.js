@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState, forwardRef, useImperativeHandle } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as actions from '../../store/actions';
 import Row from "./Row";
 import useKeypress from 'react-use-keypress';
@@ -141,7 +141,7 @@ const Puzzle = forwardRef((props,ref)=>{
 
     return (
         <Fragment>
-            <div className='shadow-lg m-4'>
+            <div className='shadow-lg m-4 bg-white'>
             {layout.map((item,key)=>{
                 return(
                     <Row key={key} columns={item} dimension={dimension}/>

@@ -8,7 +8,7 @@ export default function Row(props){
         <div className='d-flex'>
             {columns.map((item)=>{
                 return(
-                    <Column key={`${item.row}-${item.column}`} params={item} dimension={dimension} />
+                    <Column key={`${item.row}-${item.column}`} params={item} dimension={dimension}  />
                 )
             })}
         </div>
